@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ranjan Kumar Shaw — AI/ML Engineer & Full-Stack Developer</title>
+    <meta name="description" content="Portfolio of Ranjan Kumar Shaw — AI/ML Engineer & Full-Stack Developer specializing in Computer Vision, Intelligent Systems, and Full-Stack Engineering." />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <!-- 3D Three.js WebGL Canvas Container -->
+    <div id="canvas-container"></div>
+
+    <!-- Cinematic Vignette Depth Overlay -->
+    <div class="cinematic-vignette"></div>
+
+    <!-- HUD Overlay Wrapper -->
+    <main class="hud-container">
+      
+      <!-- TOP HUD HEADER -->
+      <header class="hud-header">
+        <!-- Top-Left Brand Identity -->
+        <div class="brand-identity interactive">
+          <h1 class="brand-name">RANJAN KUMAR SHAW</h1>
+          <div class="brand-title">AI/ML ENGINEER • FULL-STACK DEVELOPER</div>
+        </div>
+
+        <!-- Center HUD Navigation Bar -->
+        <nav class="hud-nav interactive" aria-label="Portfolio Sections Navigation">
+          <button class="nav-item active" data-section="HOME"><span class="nav-dot"></span>HOME</button>
+          <button class="nav-item" data-section="ABOUT"><span class="nav-dot"></span>ABOUT</button>
+          <button class="nav-item" data-section="SKILLS"><span class="nav-dot"></span>SKILLS</button>
+          <button class="nav-item" data-section="PROJECTS"><span class="nav-dot"></span>PROJECTS</button>
+          <button class="nav-item" data-section="EXPERIENCE"><span class="nav-dot"></span>EXPERIENCE</button>
+          <button class="nav-item" data-section="ACHIEVEMENTS"><span class="nav-dot"></span>ACHIEVEMENTS</button>
+          <button class="nav-item" data-section="CERTIFICATIONS"><span class="nav-dot"></span>CERTS</button>
+          <button class="nav-item" data-section="RESEARCH"><span class="nav-dot"></span>RESEARCH</button>
+          <button class="nav-item" data-section="RESUME"><span class="nav-dot"></span>RESUME</button>
+          <button class="nav-item" data-section="CONTACT"><span class="nav-dot"></span>CONTACT</button>
+        </nav>
+
+      </header>
+
+      <!-- HERO UI (Minimal Non-Intrusive Lower-Third Overlay) -->
+      <section id="hero-overlay" class="hero-overlay interactive" aria-label="Hero Introduction">
+        <h2 class="hero-title">RANJAN KUMAR SHAW</h2>
+        <p class="hero-subtitle">AI/ML ENGINEER • FULL-STACK DEVELOPER</p>
+        <div class="hero-actions">
+          <button id="btn-explore" class="btn-primary" aria-label="Explore My Work">
+            [ EXPLORE MY WORK ]
+          </button>
+        </div>
+      </section>
+
+      <!-- BOTTOM HUD FOOTER -->
+      <footer class="hud-footer">
+        <div class="footer-info interactive">
+          <span class="footer-name">RANJAN KUMAR SHAW</span>
+          <span class="footer-divider">•</span>
+          <span class="footer-title">AI/ML ENGINEER • FULL-STACK DEVELOPER</span>
+          <span class="footer-divider">•</span>
+          <span class="footer-copy">© 2026 Ranjan Kumar Shaw</span>
+        </div>
+
+        <!-- Camera Perspectives -->
+        <div class="bottom-controls interactive">
+          <div class="cam-presets" aria-label="Camera Presets">
+            <span class="cam-label">CAM:</span>
+            <button class="cam-btn active" data-preset="hero">01:HERO</button>
+            <button class="cam-btn" data-preset="desk">02:DESK</button>
+            <button class="cam-btn" data-preset="wide">03:WIDE</button>
+            <button class="cam-btn" data-preset="profile">04:PROFILE</button>
+          </div>
+        </div>
+
+        <!-- Bottom Social / Link Placeholders -->
+        <div class="social-links interactive" aria-label="Social Link Placeholders">
+          <a href="https://github.com/heyranjanshaw07" target="_blank" rel="noopener noreferrer" class="social-link">GITHUB</a>
+          <a href="https://www.linkedin.com/in/ranjan-kumar-shaw-2949b133a/" target="_blank" rel="noopener noreferrer" class="social-link">LINKEDIN</a>
+          <a href="mailto:iranjankrshaw@gmail.com" class="social-link">EMAIL</a>
+        </div>
+      </footer>
+    </main>
+
+    <!-- Focused Section Inspect Modal Drawer (3D scene remains in background) -->
+    <div id="portfolio-drawer" class="portfolio-drawer interactive" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="drawer-header">
+        <div class="drawer-title-group">
+          <div id="drawer-meta" class="drawer-meta">SECTION • DETAILS</div>
+          <h3 id="drawer-title" class="drawer-title">SECTION TITLE</h3>
+        </div>
+        <button id="drawer-close" class="drawer-close" aria-label="Close Panel">[ ESC / CLOSE ]</button>
+      </div>
+
+      <div id="drawer-body" class="drawer-body">
+        <!-- Rendered dynamically from portfolioData -->
+      </div>
+    </div>
+
+    <!-- Application Script Entry Point -->
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
