@@ -202,6 +202,12 @@ export const portfolioData = {
         code: 'AI-102',
         title: 'Azure AI Engineer Associate',
         badge: 'AI SPECIALIST'
+      },
+      {
+        issuer: 'IBM Skills Network',
+        code: 'IBM-ML',
+        title: 'Machine Learning & AI Virtual Internship',
+        badge: 'ML & AI'
       }
     ]
   },
