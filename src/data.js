@@ -145,9 +145,15 @@ export const portfolioData = {
   },
 
   experience: {
-    meta: 'LEADERSHIP & ENGINEERING ACTIVITIES',
-    title: 'EXPERIENCE & ACTIVITIES',
+    meta: 'PROFESSIONAL EXPERIENCE & LEADERSHIP',
+    title: 'EXPERIENCE & INTERNSHIPS',
     items: [
+      {
+        org: 'IBM SKILLS NETWORK',
+        role: 'Machine Learning & AI — Virtual Internship',
+        period: 'FEBRUARY 2026',
+        description: 'Completed a virtual internship focused on Machine Learning and Artificial Intelligence, gaining practical exposure to ML concepts, data processing, model development and AI workflows.'
+      },
       {
         org: 'TECHNOTHON',
         role: 'Marketing Lead',
@@ -196,12 +202,6 @@ export const portfolioData = {
         code: 'AI-102',
         title: 'Azure AI Engineer Associate',
         badge: 'AI SPECIALIST'
-      },
-      {
-        issuer: 'IBM Skills Network',
-        code: 'IBM-ML',
-        title: 'Machine Learning & AI Virtual Internship',
-        badge: 'ML INTERNSHIP'
       }
     ]
   },
