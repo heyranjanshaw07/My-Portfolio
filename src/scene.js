@@ -1037,68 +1037,68 @@ export class PortfolioScene {
     const delta = this.clock.getDelta();
     const time = this.clock.getElapsedTime();
 
-    // 1. Fluid Mouse Damping
-    this.mouse.smoothX += (this.mouse.normX - this.mouse.smoothX) * 0.055;
-    this.mouse.smoothY += (this.mouse.normY - this.mouse.smoothY) * 0.055;
+    // 1. Fluid Mouse Damping (gentle & smooth)
+    this.mouse.smoothX += (this.mouse.normX - this.mouse.smoothX) * 0.04;
+    this.mouse.smoothY += (this.mouse.normY - this.mouse.smoothY) * 0.04;
 
-    // 2. Fully 3D Interactive Desk Motion (Wherever cursor moves, desk tilts & shifts in 3D)
+    // 2. Subtle & Balanced 3D Interactive Desk Motion
     if (this.workspaceRoot) {
-      // Dynamic tilt: when cursor moves right, desk turns to face right; vertical cursor tilts top surface
-      const targetRotY = this.mouse.smoothX * 0.28; // ~16 deg yaw
-      const targetRotX = -this.mouse.smoothY * 0.16; // ~9.2 deg pitch
-      const targetRotZ = -this.mouse.smoothX * 0.045; // subtle banking
+      // Gentle tilt: subtle yaw (~6.8 deg) and pitch (~3.8 deg)
+      const targetRotY = this.mouse.smoothX * 0.12;
+      const targetRotX = -this.mouse.smoothY * 0.065;
+      const targetRotZ = -this.mouse.smoothX * 0.015;
 
-      // Dynamic position shift: desk glides along in 3D space following the cursor
-      const targetPosX = this.mouse.smoothX * 0.35; // moves sideways with cursor
-      const targetPosY = this.mouse.smoothY * 0.18; // moves up/down with cursor
-      const targetPosZ = Math.abs(this.mouse.smoothX) * -0.10 + this.mouse.smoothY * 0.06;
+      // Subtle position shift: moves gently with cursor
+      const targetPosX = this.mouse.smoothX * 0.12;
+      const targetPosY = this.mouse.smoothY * 0.06;
+      const targetPosZ = Math.abs(this.mouse.smoothX) * -0.03 + this.mouse.smoothY * 0.02;
 
-      this.workspaceRoot.rotation.y += (targetRotY - this.workspaceRoot.rotation.y) * 0.065;
-      this.workspaceRoot.rotation.x += (targetRotX - this.workspaceRoot.rotation.x) * 0.065;
-      this.workspaceRoot.rotation.z += (targetRotZ - this.workspaceRoot.rotation.z) * 0.065;
+      this.workspaceRoot.rotation.y += (targetRotY - this.workspaceRoot.rotation.y) * 0.045;
+      this.workspaceRoot.rotation.x += (targetRotX - this.workspaceRoot.rotation.x) * 0.045;
+      this.workspaceRoot.rotation.z += (targetRotZ - this.workspaceRoot.rotation.z) * 0.045;
 
-      this.workspaceRoot.position.x += (targetPosX - this.workspaceRoot.position.x) * 0.065;
-      this.workspaceRoot.position.y += (targetPosY - this.workspaceRoot.position.y) * 0.065;
-      this.workspaceRoot.position.z += (targetPosZ - this.workspaceRoot.position.z) * 0.065;
+      this.workspaceRoot.position.x += (targetPosX - this.workspaceRoot.position.x) * 0.045;
+      this.workspaceRoot.position.y += (targetPosY - this.workspaceRoot.position.y) * 0.045;
+      this.workspaceRoot.position.z += (targetPosZ - this.workspaceRoot.position.z) * 0.045;
     }
 
-    // 3. Interactive 3D Cursor Lighting: Soft point light follows cursor over the desk
+    // 3. Interactive 3D Cursor Lighting: Soft gentle point light
     if (this.cursorLight) {
-      const cLightX = this.mouse.smoothX * 2.2;
-      const cLightY = 1.35 + this.mouse.smoothY * 0.9;
-      const cLightZ = 1.1 - this.mouse.smoothY * 0.3;
+      const cLightX = this.mouse.smoothX * 1.3;
+      const cLightY = 1.35 + this.mouse.smoothY * 0.45;
+      const cLightZ = 1.1 - this.mouse.smoothY * 0.2;
       this.cursorLight.position.set(cLightX, cLightY, cLightZ);
     }
 
-    // 4. Character 3D Head & Torso Tracking (Developer looks directly towards user cursor!)
+    // 4. Character 3D Head & Torso Tracking (Developer subtly turns to look at cursor)
     if (this.headGroup) {
-      const headTargetRotY = this.mouse.smoothX * 0.44;
-      const headTargetRotX = 0.04 - this.mouse.smoothY * 0.22;
-      this.headGroup.rotation.y += (headTargetRotY - this.headGroup.rotation.y) * 0.08;
-      this.headGroup.rotation.x += (headTargetRotX - this.headGroup.rotation.x) * 0.08;
+      const headTargetRotY = this.mouse.smoothX * 0.18;
+      const headTargetRotX = 0.04 - this.mouse.smoothY * 0.09;
+      this.headGroup.rotation.y += (headTargetRotY - this.headGroup.rotation.y) * 0.055;
+      this.headGroup.rotation.x += (headTargetRotX - this.headGroup.rotation.x) * 0.055;
     }
     if (this.torsoGroup) {
       const breath = Math.sin(time * 0.9) * 0.012;
       this.torsoGroup.position.y = 0.12 + breath;
       this.torsoMesh.scale.set(1 + breath * 0.6, 1 + breath * 0.8, 1 + breath * 0.6);
-      this.torsoGroup.rotation.y += (this.mouse.smoothX * 0.08 - this.torsoGroup.rotation.y) * 0.05;
+      this.torsoGroup.rotation.y += (this.mouse.smoothX * 0.035 - this.torsoGroup.rotation.y) * 0.035;
     }
 
     // 5. Wireless Mouse Micro-Movement on Desk
     if (this.mouseGroup) {
-      this.mouseGroup.position.x = 0.36 + this.mouse.smoothX * 0.04;
-      this.mouseGroup.position.z = 0.19 - this.mouse.smoothY * 0.03;
+      this.mouseGroup.position.x = 0.36 + this.mouse.smoothX * 0.015;
+      this.mouseGroup.position.z = 0.19 - this.mouse.smoothY * 0.015;
     }
 
-    // 6. Camera 3D Orbital Parallax & Ambient Float
-    const floatX = Math.sin(time * 0.35) * 0.03;
-    const floatY = Math.cos(time * 0.28) * 0.02;
-    const camParallaxX = this.mouse.smoothX * 0.70;
-    const camParallaxY = this.mouse.smoothY * 0.40;
+    // 6. Camera Subtle 3D Orbital Parallax & Ambient Float
+    const floatX = Math.sin(time * 0.35) * 0.025;
+    const floatY = Math.cos(time * 0.28) * 0.018;
+    const camParallaxX = this.mouse.smoothX * 0.28;
+    const camParallaxY = this.mouse.smoothY * 0.16;
 
     const targetX = this.cameraPos.x + camParallaxX + floatX;
     const targetY = this.cameraPos.y + camParallaxY + floatY;
-    const targetZ = this.cameraPos.z - Math.abs(this.mouse.smoothX) * 0.12;
+    const targetZ = this.cameraPos.z - Math.abs(this.mouse.smoothX) * 0.04;
 
     this.camera.position.x += (targetX - this.camera.position.x) * this.lerpSpeed;
     this.camera.position.y += (targetY - this.camera.position.y) * this.lerpSpeed;
@@ -1107,8 +1107,8 @@ export class PortfolioScene {
     // Look at moving workspace focal center
     const focalCenter = this.cameraTarget.clone();
     if (this.workspaceRoot) {
-      focalCenter.x += this.workspaceRoot.position.x * 0.4;
-      focalCenter.y += this.workspaceRoot.position.y * 0.4;
+      focalCenter.x += this.workspaceRoot.position.x * 0.25;
+      focalCenter.y += this.workspaceRoot.position.y * 0.25;
     }
     this.camera.lookAt(focalCenter);
 

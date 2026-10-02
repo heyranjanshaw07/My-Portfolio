@@ -362,13 +362,65 @@ document.addEventListener('DOMContentLoaded', () => {
     if (section === 'CONTACT') {
       const form = document.getElementById('contact-form');
       const status = document.getElementById('form-status');
+      const submitBtn = document.getElementById('btn-send-msg');
+
       if (form) {
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', async (e) => {
           e.preventDefault();
           audioController.playTransition();
+
+          const nameInput = document.getElementById('c-name');
+          const emailInput = document.getElementById('c-email');
+          const msgInput = document.getElementById('c-msg');
+
+          const name = nameInput ? nameInput.value.trim() : '';
+          const email = emailInput ? emailInput.value.trim() : '';
+          const msg = msgInput ? msgInput.value.trim() : '';
+
           if (status) {
-            status.innerHTML = `<span class="feedback-success">✓ TRANSMISSION CONFIRMED • THANK YOU FOR REACHING OUT</span>`;
-            form.reset();
+            status.innerHTML = `<span class="feedback-success" style="background: rgba(0, 240, 255, 0.08); border-color: rgba(0, 240, 255, 0.4); color: #00f0ff;">⏳ TRANSMITTING MESSAGE TO IRANJANKRSHAW@GMAIL.COM...</span>`;
+          }
+          if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = '[ TRANSMITTING... ]';
+          }
+
+          try {
+            const response = await fetch('https://formsubmit.co/ajax/iranjankrshaw@gmail.com', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
+              body: JSON.stringify({
+                name: name,
+                email: email,
+                message: msg,
+                _subject: `New Portfolio Inquiry from ${name}`
+              })
+            });
+
+            const data = await response.json();
+            if (response.ok || data.success === 'true' || data.success === true) {
+              if (status) {
+                status.innerHTML = `<span class="feedback-success" style="background: rgba(16, 185, 129, 0.12); border-color: #10b981; color: #10b981;">✓ MESSAGE DELIVERED DIRECTLY TO IRANJANKRSHAW@GMAIL.COM!</span>`;
+              }
+              form.reset();
+            } else {
+              throw new Error(data.message || 'Transmission fallback');
+            }
+          } catch (err) {
+            // Reliable fallback to mailto so the user's message is never lost
+            const mailtoUri = `mailto:iranjankrshaw@gmail.com?subject=${encodeURIComponent('Portfolio Contact: ' + name)}&body=${encodeURIComponent(msg + '\n\nFrom: ' + name + ' (' + email + ')')}`;
+            window.location.href = mailtoUri;
+            if (status) {
+              status.innerHTML = `<span class="feedback-success" style="background: rgba(16, 185, 129, 0.12); border-color: #10b981; color: #10b981;">✓ OPENING EMAIL CLIENT TO DISPATCH TO IRANJANKRSHAW@GMAIL.COM</span>`;
+            }
+          } finally {
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.textContent = '[ SEND MESSAGE ]';
+            }
           }
         });
       }
