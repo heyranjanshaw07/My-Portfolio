@@ -65,10 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span class="p-label">INSTITUTION</span>
                 <span class="p-val">${d.profileCard.institution}</span>
               </div>
-              <div class="profile-item highlight">
-                <span class="p-label">CUMULATIVE GPA</span>
-                <span class="p-val cgpa-badge">${d.profileCard.cgpa} / 10.0</span>
-              </div>
               <div class="profile-item">
                 <span class="p-label">LOCATION</span>
                 <span class="p-val">${d.profileCard.location}</span>

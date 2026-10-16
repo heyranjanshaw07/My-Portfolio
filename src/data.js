@@ -15,7 +15,6 @@ export const portfolioData = {
       degree: 'B.Tech — Computer Science Engineering',
       specialization: 'Artificial Intelligence & Machine Learning',
       institution: 'Techno India University, West Bengal',
-      cgpa: '8.4',
       location: 'Kolkata, India'
     }
   },
@@ -233,7 +232,7 @@ export const portfolioData = {
     title: 'MY RESUME',
     description: 'Explore my education, technical skills, projects, achievements and professional experience.',
     highlights: [
-      'B.Tech in Computer Science Engineering (AI & ML) — CGPA 8.4',
+      'B.Tech in Computer Science Engineering (AI & ML)',
       'Awarded in 4 Hackathons (OM-Tech, IoT Expo, Mechnovate, Vibe-Athon)',
       '5x Microsoft Azure Certified + IBM AI Virtual Internship',
       'Author / Architect of JeevaDrishti (Cell Detection VLM) & KAVACH Platform'
